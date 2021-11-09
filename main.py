@@ -8,8 +8,6 @@ token = "2098827991:AAEyRFMfBvkSkfjLZnN6uOMCc1o-clk9W3o"
 
 bot = telebot.TeleBot(token)
 
-global chat
-
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
@@ -22,7 +20,7 @@ def welcome(message):
 def send_text(message):
     if message.text.lower() == 'да':
         time.sleep(2)
-        msg = bot.reply_to(message, "Отлично! Но давай сперва проверим, надо ли вам это?")
+        msg = bot.reply_to(message, "Отлично! Но давайте сперва проверим, надо ли вам это?")
         time.sleep(2)
         bot.send_message(message.chat.id, 'Как вас зовут?')
         bot.register_next_step_handler(msg, send_name)
@@ -126,14 +124,26 @@ def offer(message):
 def diets(message):
     if message.text.lower() == 'японская':
         bot.send_message(message.chat.id,'Отлично! Сейчас я пришлю меню на каждый день! Изучите его.')
+        time.sleep(3)
         bot.send_message(message.chat.id, f'Купите необходимые продукты и начинайте путь к красоте и здоровью! У вас все получится {name}!')
+        time.sleep(2)
         bot.send_message(message.chat.id, f'Желаю удачи, {name}!')
         bot.send_photo(message.chat.id, open('photo7.jpg', 'rb'))
         bot.send_message(message.chat.id, f'{diet_yap()}')
-        while True:
-            time.sleep(20000)
+        i = 0
+        while i <= 85:
+            time.sleep(14400)
             bot.send_photo(message.chat.id, open('photo4.jpg', 'rb'))
             bot.send_message(message.chat.id, f'{warnings()}')
+            i += 1
+
+        bot.send_message(message.chat.id, f'Молодец, {name}! Вы справились!')
+        bot.send_message(message.chat.id, f'А теперь давайте проверим результаты.')
+        time.sleep(2)
+        msg = bot.send_message(message.chat.id, f'Какой ваш новый вес, {name}? ')
+        bot.register_next_step_handler(msg, send_weight)
+
+
 
     elif message.text.lower() == 'кремлевская':
         bot.send_message(message.chat.id,'Отлично! Сейчас я пришлю меню на каждый день! Изучите его.')
@@ -141,20 +151,37 @@ def diets(message):
         bot.send_message(message.chat.id,f'Желаю удачи, {name}!')
         bot.send_photo(message.chat.id, open('photo7.jpg', 'rb'))
         bot.send_message(message.chat.id, f'{diet_kr()}')
-        while True:
-            time.sleep(20000)
+        i = 0
+        while i <= 60:
+            time.sleep(14400)
             bot.send_photo(message.chat.id, open('photo4.jpg', 'rb'))
             bot.send_message(message.chat.id, f'{warnings()}')
+            i += 1
+
+        bot.send_message(message.chat.id, f'Молодец, {name}! Вы справились!')
+        bot.send_message(message.chat.id, f'А теперь давайте проверим результаты.')
+        time.sleep(2)
+        msg = bot.send_message(message.chat.id, f'Какой ваш новый вес, {name}? ')
+        bot.register_next_step_handler(msg, send_weight)
+
     elif message.text.lower() == 'гречневая':
         bot.send_message(message.chat.id,'Отлично! Сейчас я пришлю меню на каждый день! Изучите его.')
         bot.send_message(message.chat.id,f'Купите необходимые продукты и начинайте путь к красоте и здоровью! У вас все получится {name}!')
         bot.send_message(message.chat.id,f'Желаю удачи, {name}!')
         bot.send_photo(message.chat.id, open('photo7.jpg', 'rb'))
         bot.send_message(message.chat.id, f'{diet_gr()}')
-        while True:
-            time.sleep(20000)
+        i = 0
+        while i <= 85:
+            time.sleep(14400)
             bot.send_photo(message.chat.id, open('photo4.jpg', 'rb'))
             bot.send_message(message.chat.id, f'{warnings()}')
+            i += 1
+
+        bot.send_message(message.chat.id, f'Молодец, {name}! Вы справились!')
+        bot.send_message(message.chat.id, f'А теперь давайте проверим результаты.')
+        time.sleep(2)
+        msg = bot.send_message(message.chat.id, f'Какой ваш новый вес, {name}? ')
+        bot.register_next_step_handler(msg, send_weight)
     else:
         bot.send_message(message.chat.id,'Извините, я вас не поняла. Уточните, какую диету вы выбрали.')
         return
