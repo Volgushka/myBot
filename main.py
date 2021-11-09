@@ -1,6 +1,6 @@
 import telebot
+from telebot import types
 import random
-import schedule
 import time
 
 
@@ -116,7 +116,14 @@ def offer(message):
         bot.send_message(message.chat.id, 'Будьте внимательны к своему здоровью! Помните: худоба не самоцель! Желаю удачи!!!')
         bot.send_photo(message.chat.id, open('photo3.jpg', 'rb'))
     elif group in '45':
-        bot.send_message(message.chat.id, 'Предлагаю вам на выбор три лучшие диеты: японская (14 дней), гречневая(14 дней) и кремлевская (10 дней)')
+        kb = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True,one_time_keyboard= True)
+        button1 = types.KeyboardButton("Японская")
+        button2 = types.KeyboardButton("Кремлевская")
+        button3 = types.KeyboardButton("Гречневая")
+        kb.add(button1,button2,button3)
+
+        bot.send_message(message.chat.id, 'Предлагаю вам на выбор три лучшие диеты: японская (14 дней), гречневая(14 дней) и кремлевская (10 дней)',reply_markup=kb)
+
         bot.register_next_step_handler(msg, diets)
         bot.send_photo(message.chat.id, open('photo8.jpg', 'rb'))
 
